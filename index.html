@@ -1,897 +1,59 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="DJER-BAT — Montage d'échafaudages, installation de plateformes sur mat, ascenseurs de chantier et bi-mats. Vérification sécurité et réception de chantier. Gex (01).">
-<title>DJER-BAT — Montage Échafaudages & Plateformes sur Mat | Gex</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
-<style>
-  /* ===== RESET & BASE ===== */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bleu: #1e3a8a;
-    --bleu-fonce: #0f172a;
-    --bleu-clair: #3b82f6;
-    --orange: #f97316;
-    --orange-fonce: #ea580c;
-    --gris-clair: #f1f5f9;
-    --gris: #64748b;
-    --texte: #1e293b;
-    --blanc: #ffffff;
-    --ombre: 0 4px 20px rgba(0,0,0,0.08);
-    --ombre-forte: 0 10px 40px rgba(0,0,0,0.15);
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--texte);
-    line-height: 1.6;
-    background: var(--blanc);
-  }
-  img { max-width: 100%; display: block; }
-  a { text-decoration: none; color: inherit; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-  section { padding: 80px 0; }
-  h1, h2, h3 { line-height: 1.2; color: var(--bleu-fonce); }
-  h2 { font-size: 2.5rem; margin-bottom: 20px; text-align: center; }
-  h2::after {
-    content: ''; display: block; width: 80px; height: 4px;
-    background: var(--orange); margin: 20px auto 0; border-radius: 2px;
-  }
-  .subtitle { text-align: center; color: var(--gris); margin-bottom: 50px; font-size: 1.2rem; max-width: 800px; margin-left: auto; margin-right: auto; }
-
-  /* ===== HEADER ===== */
-  header {
-    position: fixed; top: 0; left: 0; right: 0;
-    background: var(--blanc);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-  }
-  .top-bar {
-    background: var(--bleu-fonce);
-    color: white;
-    padding: 10px 0;
-    font-size: 0.9rem;
-  }
-  .top-bar .container {
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
-  }
-  .top-bar a { color: var(--orange); font-weight: 600; }
-  .top-bar-info { display: flex; gap: 20px; flex-wrap: wrap; }
-  .top-bar-info span { display: flex; align-items: center; gap: 5px; }
-  .nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 20px; max-width: 1200px; margin: 0 auto;
-  }
-  .logo {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 2rem; font-weight: 900;
-    letter-spacing: -1px;
-  }
-  .logo-svg {
-    width: 55px; height: 55px;
-  }
-  .logo-text-blue { color: var(--bleu); }
-  .logo-text-orange { color: var(--orange); }
-  .nav-links { display: flex; gap: 25px; list-style: none; }
-  .nav-links a {
-    font-weight: 600; color: var(--bleu-fonce);
-    transition: color 0.3s;
-    position: relative;
-  }
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: -5px; left: 0;
-    width: 0; height: 2px; background: var(--orange);
-    transition: width 0.3s;
-  }
-  .nav-links a:hover { color: var(--orange); }
-  .nav-links a:hover::after { width: 100%; }
-  .nav-cta {
-    background: var(--orange); color: white !important;
-    padding: 12px 25px; border-radius: 6px;
-    font-weight: 700; transition: all 0.3s;
-  }
-  .nav-cta:hover { background: var(--orange-fonce); transform: translateY(-2px); }
-  .nav-cta::after { display: none !important; }
-  .burger {
-    display: none; flex-direction: column; gap: 5px;
-    background: none; border: none; cursor: pointer; padding: 5px;
-  }
-  .burger span {
-    width: 25px; height: 3px; background: var(--bleu);
-    border-radius: 2px; transition: 0.3s;
-  }
-
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh;
-    background: linear-gradient(135deg, rgba(30,58,138,0.92), rgba(15,23,42,0.88)),
-                url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920') center/cover;
-    background-attachment: fixed;
-    color: white;
-    display: flex; align-items: center;
-    padding-top: 130px;
-    position: relative;
-  }
-  .hero-content { 
-    max-width: 900px; 
-    position: relative;
-    z-index: 1;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: var(--orange);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  .hero h1 {
-    font-size: 3.5rem; color: white; margin-bottom: 25px;
-    font-weight: 800;
-    animation: fadeInUp 1s ease;
-  }
-  .hero h1 span { color: var(--orange); }
-  .hero p { 
-    font-size: 1.3rem; margin-bottom: 40px; opacity: 0.95;
-    animation: fadeInUp 1s ease 0.2s both;
-    max-width: 700px;
-  }
-  .hero-buttons { 
-    display: flex; gap: 20px; flex-wrap: wrap;
-    animation: fadeInUp 1s ease 0.4s both;
-  }
-  
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .btn {
-    display: inline-block; padding: 16px 35px;
-    border-radius: 8px; font-weight: 700;
-    transition: all 0.3s; cursor: pointer; border: none;
-    font-size: 1.1rem;
-  }
-  .btn-primary { 
-    background: var(--orange); color: white;
-    box-shadow: 0 6px 20px rgba(249,115,22,0.4);
-  }
-  .btn-primary:hover { 
-    background: var(--orange-fonce); 
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(249,115,22,0.6);
-  }
-  .btn-outline {
-    background: transparent; color: white;
-    border: 3px solid white;
-  }
-  .btn-outline:hover { 
-    background: white; color: var(--bleu);
-    transform: translateY(-3px);
-  }
-
-  /* ===== À PROPOS ===== */
-  .about {
-    background: white;
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-  }
-  .about-img {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--ombre-forte);
-    position: relative;
-  }
-  .about-img img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-  }
-  .about-img::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: -20px;
-    bottom: -20px;
-    border: 4px solid var(--orange);
-    border-radius: 12px;
-    z-index: -1;
-  }
-  .about-content h2 {
-    text-align: left;
-  }
-  .about-content h2::after {
-    margin: 20px 0 0 0;
-  }
-  .about-content p {
-    color: var(--gris);
-    margin-bottom: 20px;
-    font-size: 1.05rem;
-  }
-  .about-features {
-    list-style: none;
-    margin-top: 25px;
-  }
-  .about-features li {
-    padding: 10px 0;
-    padding-left: 35px;
-    position: relative;
-    font-weight: 600;
-    color: var(--bleu-fonce);
-  }
-  .about-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 25px;
-    height: 25px;
-    background: var(--orange);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-
-  /* ===== SERVICES ===== */
-  .services {
-    background: var(--gris-clair);
-  }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-  }
-  .service-card {
-    background: white; 
-    border-radius: 12px; 
-    overflow: hidden;
-    box-shadow: var(--ombre);
-    transition: transform 0.4s, box-shadow 0.4s;
-    border-top: 5px solid var(--orange);
-  }
-  .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--ombre-forte);
-  }
-  .service-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-  }
-  .service-content {
-    padding: 30px;
-  }
-  .service-number {
-    display: inline-block;
-    background: var(--bleu);
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 40px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-  .service-card h3 { 
-    margin-bottom: 15px; 
-    font-size: 1.4rem;
-    color: var(--bleu-fonce);
-  }
-  .service-card p { 
-    color: var(--gris); 
-    margin-bottom: 15px;
-    font-size: 0.95rem;
-  }
-  .service-card ul {
-    list-style: none;
-    margin-top: 15px;
-  }
-  .service-card ul li {
-    padding: 6px 0;
-    padding-left: 25px;
-    position: relative;
-    color: var(--texte);
-    font-size: 0.95rem;
-  }
-  .service-card ul li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--orange);
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-
-  /* ===== GALERIE ===== */
-  .galerie {
-    background: white;
-  }
-  .galerie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  .galerie-item {
-    position: relative; 
-    overflow: hidden;
-    border-radius: 12px; 
-    aspect-ratio: 4/3;
-    cursor: pointer;
-    box-shadow: var(--ombre);
-    transition: opacity 0.3s, transform 0.3s;
-  }
-  .galerie-item.hidden {
-    display: none;
-  }
-  .galerie-item img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover;
-    transition: transform 0.6s;
-  }
-  .galerie-item:hover img { 
-    transform: scale(1.1);
-  }
-  .galerie-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(30,58,138,0.95), transparent);
-    opacity: 0;
-    transition: opacity 0.4s;
-    display: flex;
-    align-items: flex-end;
-    padding: 25px;
-  }
-  .galerie-item:hover .galerie-overlay {
-    opacity: 1;
-  }
-  .galerie-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 5px;
-    color: white;
-  }
-  .galerie-info p {
-    font-size: 0.95rem;
-    opacity: 0.9;
-    color: white;
-  }
-
-  /* Filtres de galerie */
-  .gallery-filters {
-    text-align: center;
-    margin-bottom: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  .gallery-filter {
-    padding: 10px 25px;
-    background: white;
-    border: 2px solid var(--bleu);
-    color: var(--bleu);
-    border-radius: 30px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 0.95rem;
-  }
-  .gallery-filter:hover,
-  .gallery-filter.active {
-    background: var(--bleu);
-    color: white;
-    transform: translateY(-2px);
-  }
-
-  /* Lightbox */
-  .lightbox {
-    display: none; 
-    position: fixed; 
-    inset: 0;
-    background: rgba(0,0,0,0.95); 
-    z-index: 2000;
-    align-items: center; 
-    justify-content: center; 
-    padding: 20px;
-  }
-  .lightbox.active { display: flex; }
-  .lightbox img { 
-    max-width: 90%; 
-    max-height: 90vh; 
-    border-radius: 12px;
-  }
-  .lightbox-close {
-    position: absolute; 
-    top: 20px; 
-    right: 30px;
-    color: white; 
-    font-size: 3rem; 
-    cursor: pointer;
-    background: none; 
-    border: none;
-  }
-
-  /* ===== ENGAGEMENTS ===== */
-  .engagements {
-    background: linear-gradient(135deg, var(--bleu), var(--bleu-fonce));
-    color: white;
-  }
-  .engagements h2 { color: white; }
-  .engagements h2::after { background: var(--orange); }
-  .engagements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-  }
-  .engagement-card {
-    text-align: center;
-    padding: 30px 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: all 0.3s;
-  }
-  .engagement-card:hover {
-    background: rgba(255,255,255,0.15);
-    transform: translateY(-5px);
-  }
-  .engagement-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-  }
-  .engagement-card h3 {
-    color: white;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-  }
-  .engagement-card p {
-    color: rgba(255,255,255,0.9);
-    font-size: 0.95rem;
-  }
-
-  /* ===== CONTACT ===== */
-  .contact {
-    background: var(--gris-clair);
-  }
-  .contact-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: start;
-  }
-  .contact-info {
-    background: var(--bleu-fonce);
-    color: white;
-    padding: 40px;
-    border-radius: 12px;
-  }
-  .contact-info h3 {
-    color: white;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-  }
-  .contact-info p {
-    margin-bottom: 25px;
-    opacity: 0.9;
-  }
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .contact-item:last-child { border-bottom: none; }
-  .contact-item-icon {
-    width: 45px;
-    height: 45px;
-    background: var(--orange);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    flex-shrink: 0;
-  }
-  .contact-item-content h4 {
-    color: var(--orange);
-    margin-bottom: 3px;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-  }
-  .contact-item-content a, .contact-item-content p {
-    color: white;
-    font-weight: 600;
-    font-size: 1.05rem;
-  }
-  .contact-item-content a:hover { color: var(--orange); }
-
-  /* Formulaire */
-  .contact-form {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: var(--ombre);
-  }
-  .contact-form h3 {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-    color: var(--bleu-fonce);
-  }
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  .form-group {
-    display: flex;
-    flex-direction: column;
-  }
-  .form-group.full {
-    grid-column: 1 / -1;
-  }
-  .form-group label {
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--bleu-fonce);
-    font-size: 0.95rem;
-  }
-  .form-group label .required {
-    color: var(--orange);
-  }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    padding: 12px 15px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: all 0.3s;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--orange);
-    box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
-  }
-  .form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-  }
-  .form-submit {
-    margin-top: 25px;
-  }
-  .form-submit .btn {
-    width: 100%;
-    padding: 16px;
-    font-size: 1.1rem;
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--bleu-fonce); 
-    color: white;
-    padding: 50px 0 20px;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px; 
-    margin-bottom: 30px;
-  }
-  .footer-col h4 {
-    color: var(--orange); 
-    margin-bottom: 20px; 
-    font-size: 1.2rem;
-  }
-  .footer-col p, .footer-col li {
-    opacity: 0.85; 
-    margin-bottom: 10px; 
-    font-size: 0.95rem;
-  }
-  .footer-col ul { list-style: none; }
-  .footer-col a:hover { color: var(--orange); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.15);
-    padding-top: 20px; 
-    text-align: center;
-    opacity: 0.7; 
-    font-size: 0.9rem;
-  }
-
-  /* ===== WHATSAPP FLOATING ===== */
-  .whatsapp-float {
-    position: fixed; 
-    bottom: 30px; 
-    right: 30px;
-    width: 70px; 
-    height: 70px; 
-    border-radius: 50%;
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    background: #25d366;
-    color: white;
-    box-shadow: 0 6px 30px rgba(37,211,102,0.5);
-    z-index: 999; 
-    transition: transform 0.3s;
-    animation: pulse 2s infinite;
-  }
-  .whatsapp-float:hover { 
-    transform: scale(1.15);
-  }
-  .whatsapp-float svg {
-    width: 40px;
-    height: 40px;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
-    50% { box-shadow: 0 6px 40px rgba(37,211,102,0.8); }
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 900px) {
-    .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
-    .about-img::before { display: none; }
-  }
-  @media (max-width: 768px) {
-    .top-bar { display: none; }
-    .nav-links {
-      position: fixed; top: 70px; left: 0; right: 0;
-      background: white; flex-direction: column;
-      padding: 20px; gap: 15px;
-      transform: translateY(-150%);
-      transition: transform 0.3s;
-      box-shadow: var(--ombre);
-    }
-    .nav-links.active { transform: translateY(0); }
-    .burger { display: flex; }
-    .hero h1 { font-size: 2.2rem; }
-    .hero p { font-size: 1.1rem; }
-    h2 { font-size: 1.8rem; }
-    section { padding: 60px 0; }
-    .services-grid { grid-template-columns: 1fr; }
-    .logo-svg { width: 45px; height: 45px; }
-    .logo { font-size: 1.6rem; }
-    .whatsapp-float { width: 60px; height: 60px; bottom: 20px; right: 20px; }
-    .whatsapp-float svg { width: 35px; height: 35px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .contact-info, .contact-form { padding: 25px; }
-    .gallery-filter { padding: 8px 18px; font-size: 0.9rem; }
-  }
-</style>
-</head>
-<body>
-
-<!-- ===== HEADER ===== -->
-<header>
-  <div class="top-bar">
-    <div class="container">
-      <div class="top-bar-info">
-        <span>📍 60 rue du Château Gagneur, 01170 Gex</span>
-        <span>📞 <a href="tel:+33618637247">06 18 63 72 47</a></span>
-        <span>✉️ <a href="mailto:djer.bat.pro@gmail.com">djer.bat.pro@gmail.com</a></span>
-      </div>
-    </div>
-  </div>
-  <nav class="nav">
-    <a href="#accueil" class="logo">
-      <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <rect x="15" y="20" width="8" height="60" fill="#f97316" rx="2"/>
-        <rect x="77" y="20" width="8" height="60" fill="#f97316" rx="2"/>
-        <rect x="15" y="20" width="70" height="6" fill="#1e3a8a" rx="1"/>
-        <rect x="15" y="45" width="70" height="6" fill="#1e3a8a" rx="1"/>
-        <rect x="15" y="70" width="70" height="6" fill="#1e3a8a" rx="1"/>
-        <rect x="15" y="74" width="70" height="6" fill="#1e3a8a" rx="1"/>
-        <line x1="23" y1="26" x2="77" y2="45" stroke="#1e3a8a" stroke-width="3"/>
-        <line x1="77" y1="26" x2="23" y2="45" stroke="#1e3a8a" stroke-width="3"/>
-        <line x1="23" y1="51" x2="77" y2="70" stroke="#1e3a8a" stroke-width="3"/>
-        <line x1="77" y1="51" x2="23" y2="70" stroke="#1e3a8a" stroke-width="3"/>
-        <rect x="10" y="80" width="80" height="8" fill="#ea580c" rx="2"/>
-      </svg>
-      <span><span class="logo-text-blue">DJER</span><span class="logo-text-orange">-BAT</span></span>
-    </a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#accueil">Accueil</a></li>
-      <li><a href="#about">À propos</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#galerie">Réalisations</a></li>
-      <li><a href="#engagements">Engagements</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#contact" class="nav-cta">Devis gratuit</a></li>
-    </ul>
-    <button class="burger" id="burger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-</header>
-
-<!-- ===== HERO ===== -->
-<section class="hero" id="accueil">
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-badge">Votre Partenaire de Confiance</div>
-      <h1>Montage d'<span>Échafaudages</span> & Installation de Plateformes sur Mat</h1>
-      <p>Spécialiste du montage d'échafaudages, installation d'ascenseurs de chantier et bi-mats. Équipe expérimentée, sécurité garantie, intervention rapide sur Gex et toute la région.</p>
-      <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary">Demander un devis gratuit</a>
-        <a href="#services" class="btn btn-outline">Nos services</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== À PROPOS ===== -->
-<section class="about" id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-img">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Équipe DJER-BAT">
-      </div>
-      <div class="about-content">
-        <h2>À propos de DJER-BAT</h2>
-        <p>Nous avons le plaisir de vous présenter notre société <strong>DJER-BAT</strong>, spécialisée dans le domaine du <strong>montage d'échafaudage</strong> et de l'<strong>installation de plateforme sur mat</strong>, notamment les ascenseurs de chantier et les bi-mats.</p>
-        <p>Forts d'une <strong>équipe expérimentée et passionnée</strong>, nous offrons une gamme complète de services répondant aux besoins de nos clients en matière de sécurité et d'efficacité sur leurs chantiers.</p>
-        <ul class="about-features">
-          <li>Documents administratifs en règle</li>
-          <li>Conformité et transparence garanties</li>
-          <li>Sécurité et satisfaction client prioritaires</li>
-          <li>Services de qualité dans les délais impartis</li>
-          <li>Respect des normes les plus strictes de l'industrie</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SERVICES ===== -->
-<section class="services" id="services">
-  <div class="container">
-    <h2>Nos Services</h2>
-    <p class="subtitle">Une gamme complète de services pour la sécurité et l'efficacité de vos chantiers</p>
-    <div class="services-grid">
-      
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Montage d'échafaudage">
-        <div class="service-content">
-          <div class="service-number">1</div>
-          <h3>Montage d'Échafaudage</h3>
-          <p>Nous assurons le montage professionnel et sécurisé d'échafaudages pour tous types de projets, en garantissant le respect des normes de sécurité les plus strictes.</p>
-          <ul>
-            <li>Échafaudages de façades</li>
-            <li>Tours de charges</li>
-            <li>Escaliers d'accès</li>
-            <li>Parapluies de protection</li>
-            <li>Conformité normes NF-EN 12810</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800" alt="Plateforme sur mat">
-        <div class="service-content">
-          <div class="service-number">2</div>
-          <h3>Installation de Plateforme sur Mat</h3>
-          <p>Nous sommes spécialisés dans l'installation d'ascenseurs de chantier et de bi-mats, offrant des solutions fiables et efficaces pour faciliter l'accès en hauteur sur vos chantiers.</p>
-          <ul>
-            <li>Ascenseurs de chantier</li>
-            <li>Bi-mats</li>
-            <li>Plateformes monte-charges</li>
-            <li>Personnel accompagnant</li>
-            <li>Installation et mise en service</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1590725140246-2709c1432a5a?w=800" alt="Vérification de sécurité">
-        <div class="service-content">
-          <div class="service-number">3</div>
-          <h3>Vérification de Sécurité</h3>
-          <p>Nous réalisons des vérifications de sécurité régulières des échafaudages à pied, assurant la conformité aux normes en vigueur et la sécurité des travailleurs.</p>
-          <ul>
-            <li>Vérification échafaudages à pied</li>
-            <li>Contrôle de conformité</li>
-            <li>Rapport détaillé</li>
-            <li>Mise en conformité si nécessaire</li>
-            <li>Suivi régulier</li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="service-card">
-        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800" alt="Réception de chantier">
-        <div class="service-content">
-          <div class="service-number">4</div>
-          <h3>Réception de Chantier</h3>
-          <p>Nous intervenons dans la phase de réception de chantier, en garantissant que tous les éléments liés à nos interventions sont conformes aux exigences contractuelles et réglementaires.</p>
-          <ul>
-            <li>Contrôle final des installations</li>
-            <li>Vérification conformité contractuelle</li>
-            <li>Respect exigences réglementaires</li>
-            <li>Documentation complète</li>
-            <li>Validation et remise</li>
-          </ul>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</section>
-
 <!-- ===== GALERIE AMÉLIORÉE ===== -->
 <section class="galerie" id="galerie">
   <div class="container">
     <h2>Nos Réalisations</h2>
-    <p class="subtitle">Découvrez nos interventions sur différents types de chantiers : églises, monuments historiques, bâtiments industriels et particuliers</p>
+    <p class="subtitle">Découvrez nos interventions sur différents types de chantiers : ponts, centrales EDF, industries, monuments historiques et particuliers</p>
     
     <!-- Filtres de galerie -->
     <div class="gallery-filters">
       <button class="gallery-filter active" data-filter="all">Tous</button>
-      <button class="gallery-filter" data-filter="eglises">Églises & Monuments</button>
+      <button class="gallery-filter" data-filter="ponts">Ponts</button>
+      <button class="gallery-filter" data-filter="centrales">Centrales EDF</button>
       <button class="gallery-filter" data-filter="industriel">Industriel</button>
+      <button class="gallery-filter" data-filter="monuments">Monuments</button>
+      <button class="gallery-filter" data-filter="confinements">Confinements</button>
       <button class="gallery-filter" data-filter="particuliers">Particuliers</button>
-      <button class="gallery-filter" data-filter="ascenseurs">Ascenseurs</button>
     </div>
     
     <div class="galerie-grid">
-      <!-- Églises et Monuments -->
-      <div class="galerie-item" data-category="eglises">
-        <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800" alt="Échafaudage église">
+      <!-- Ponts -->
+      <div class="galerie-item" data-category="ponts">
+        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800" alt="Échafaudage pont">
         <div class="galerie-overlay">
           <div class="galerie-info">
-            <h3>Église Saint-Louis</h3>
-            <p>Restauration façade - Grenoble (38)</p>
+            <h3>Pont Autoroutier</h3>
+            <p>Travaux de réfection - Région Rhône-Alpes</p>
           </div>
         </div>
       </div>
       
-      <div class="galerie-item" data-category="eglises">
-        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800" alt="Échafaudage cathédrale">
+      <div class="galerie-item" data-category="ponts">
+        <img src="https://images.unsplash.com/photo-1513828583688-c52f47529f21?w=800" alt="Échafaudage ouvrage d'art">
         <div class="galerie-overlay">
           <div class="galerie-info">
-            <h3>Cathédrale</h3>
-            <p>Travaux de rénovation - Gap (05)</p>
+            <h3>Ouvrage d'Art</h3>
+            <p>Échafaudage multidirectionnel</p>
           </div>
         </div>
       </div>
       
-      <div class="galerie-item" data-category="eglises">
-        <img src="https://images.unsplash.com/photo-1517089596392-fb9a9033e054?w=800" alt="Échafaudage chapelle">
+      <!-- Centrales EDF -->
+      <div class="galerie-item" data-category="centrales">
+        <img src="https://images.unsplash.com/photo-1517089596392-fb9a9033e054?w=800" alt="Centrale EDF">
         <div class="galerie-overlay">
           <div class="galerie-info">
-            <h3>Chapelle Sainte-Epine</h3>
-            <p>Montage échafaudage - Corenc (38)</p>
+            <h3>Centrale Nucléaire</h3>
+            <p>Maintenance périodique - EDF</p>
           </div>
         </div>
       </div>
       
-      <div class="galerie-item" data-category="eglises">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Échafaudage église haute">
+      <div class="galerie-item" data-category="centrales">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800" alt="Centrale thermique">
         <div class="galerie-overlay">
           <div class="galerie-info">
-            <h3>Église de Sermerieu</h3>
-            <p>Hauteur 40m - Isère (38)</p>
+            <h3>Centrale Thermique</h3>
+            <p>Travaux de maintenance</p>
           </div>
         </div>
       </div>
@@ -908,11 +70,63 @@
       </div>
       
       <div class="galerie-item" data-category="industriel">
-        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800" alt="Échafaudage usine">
+        <img src="https://images.unsplash.com/photo-1565008447742-974799264915?w=800" alt="Usine">
         <div class="galerie-overlay">
           <div class="galerie-info">
-            <h3>Maintenance Industrielle</h3>
-            <p>Confinement bâche thermosoudée</p>
+            <h3>Complexe Industriel</h3>
+            <p>Tours de charges et accès</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="galerie-item" data-category="industriel">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Échafaudage La Bastille">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>La Bastille - Grenoble</h3>
+            <p>Échafaudage industriel</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Monuments historiques -->
+      <div class="galerie-item" data-category="monuments">
+        <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=800" alt="Monument historique">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>Monument Historique</h3>
+            <p>Restauration façade</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="galerie-item" data-category="monuments">
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800" alt="Château">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>Château</h3>
+            <p>Rénovation patrimoine</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Confinements -->
+      <div class="galerie-item" data-category="confinements">
+        <img src="https://images.unsplash.com/photo-1590725140246-2709c1432a5a?w=800" alt="Bâche thermosoudée">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>Confinement</h3>
+            <p>Bâche thermosoudée étanche</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="galerie-item" data-category="confinements">
+        <img src="https://images.unsplash.com/photo-1517089596392-fb9a9033e054?w=800" alt="Désamiantage">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>Désamiantage</h3>
+            <p>Confinement zone sensible</p>
           </div>
         </div>
       </div>
@@ -938,38 +152,6 @@
         </div>
       </div>
       
-      <!-- Ascenseurs de chantier -->
-      <div class="galerie-item" data-category="ascenseurs">
-        <img src="https://images.unsplash.com/photo-1590725140246-2709c1432a5a?w=800" alt="Ascenseur de chantier">
-        <div class="galerie-overlay">
-          <div class="galerie-info">
-            <h3>Ascenseur de Chantier</h3>
-            <p>Plateforme sur mat - RAE LIFT</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="galerie-item" data-category="ascenseurs">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Bi-mat">
-        <div class="galerie-overlay">
-          <div class="galerie-info">
-            <h3>Bi-Mat</h3>
-            <p>Installation plateforme double</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Autres réalisations -->
-      <div class="galerie-item" data-category="industriel">
-        <img src="https://images.unsplash.com/photo-1565008447742-974799264915?w=800" alt="Tour échafaudage">
-        <div class="galerie-overlay">
-          <div class="galerie-info">
-            <h3>Tour de Charges</h3>
-            <p>Accès en hauteur sécurisé</p>
-          </div>
-        </div>
-      </div>
-      
       <div class="galerie-item" data-category="particuliers">
         <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Échafaudage immeuble">
         <div class="galerie-overlay">
@@ -979,309 +161,96 @@
           </div>
         </div>
       </div>
+      
+      <!-- Tours de charges -->
+      <div class="galerie-item" data-category="industriel">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Tour de charges">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>Tours de Charges</h3>
+            <p>Accès en hauteur sécurisé</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Escaliers publics -->
+      <div class="galerie-item" data-category="monuments">
+        <img src="https://images.unsplash.com/photo-1565008447742-974799264915?w=800" alt="Escalier public">
+        <div class="galerie-overlay">
+          <div class="galerie-info">
+            <h3>Escalier Public</h3>
+            <p>Événementiel / Réhabilitation</p>
+          </div>
+        </div>
+      </div>
     </div>
     
-    <!-- Liste des références -->
+    <!-- Liste des références par catégorie -->
     <div style="margin-top: 60px; background: var(--gris-clair); padding: 40px; border-radius: 12px;">
-      <h3 style="text-align: center; margin-bottom: 30px; color: var(--bleu-fonce); font-size: 1.5rem;">Nos Références - Églises et Monuments</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; font-size: 0.95rem; color: var(--texte);">
-        <div>✓ Église Saint-Louis - Grenoble (38)</div>
-        <div>✓ Cathédrale de Gap (05)</div>
-        <div>✓ Église Saint-Maurice - Annecy (74)</div>
-        <div>✓ Église de Crolles (38)</div>
-        <div>✓ Église de Moirans (38)</div>
-        <div>✓ Église de Sermerieu - Hauteur 40m (38)</div>
-        <div>✓ Église de Villard-de-Lans (38)</div>
-        <div>✓ Église de Monteynard (38)</div>
-        <div>✓ Chapelle Sainte-Epine - Corenc (38)</div>
-        <div>✓ Église de Dolomieu (38)</div>
-        <div>✓ Église de Leoncel (26)</div>
-        <div>✓ Église de Venon (38)</div>
-        <div>✓ Monastère Notre-Dame - Boëge (38)</div>
-        <div>✓ Église de Laragne-Montéglin (05)</div>
-        <div>✓ Église de Saint-Julien en Vercors (26)</div>
-        <div>✓ Église Saint Jean-Baptiste (38)</div>
+      <h3 style="text-align: center; margin-bottom: 30px; color: var(--bleu-fonce); font-size: 1.5rem;">Nos Domaines d'Intervention</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; font-size: 0.95rem; color: var(--texte);">
+        
+        <div>
+          <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.1rem;"> Ponts & Ouvrages d'Art</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div>✓ Ponts autoroutiers</div>
+            <div>✓ Viaducs</div>
+            <div>✓ Passerelles</div>
+            <div>✓ Ouvrages d'art complexes</div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.1rem;">⚡ Centrales EDF</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div>✓ Centrales nucléaires</div>
+            <div>✓ Centrales thermiques</div>
+            <div>✓ Barrages hydroélectriques</div>
+            <div>✓ Maintenance périodique</div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.1rem;">🏭 Sites Industriels</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div>✓ Usines et manufactures</div>
+            <div>✓ Complexes industriels</div>
+            <div>✓ Tours de charges</div>
+            <div>✓ Échafaudages multidirectionnels</div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.1rem;">️ Monuments Historiques</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div>✓ Châteaux</div>
+            <div>✓ Bâtiments classés</div>
+            <div>✓ Patrimoine architectural</div>
+            <div>✓ Escaliers publics/événements</div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.1rem;">🛡️ Confinements</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div>✓ Bâches thermosoudées</div>
+            <div>✓ Désamiantage</div>
+            <div>✓ Zones sensibles</div>
+            <div>✓ Confinement étanche</div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.1rem;">🏠 Particuliers</h4>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div>✓ Maisons individuelles</div>
+            <div>✓ Immeubles collectifs</div>
+            <div>✓ Ravalement façades</div>
+            <div>✓ Rénovation complète</div>
+          </div>
+        </div>
+        
       </div>
-      <p style="text-align: center; margin-top: 25px; color: var(--gris); font-weight: 600;">
-        Plus de 40 églises et cathédrales réalisées dans toute la région
-      </p>
     </div>
   </div>
 </section>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose">&times;</button>
-  <img src="" alt="Photo agrandie" id="lightboxImg">
-</div>
-
-<!-- ===== ENGAGEMENTS ===== -->
-<section class="engagements" id="engagements">
-  <div class="container">
-    <h2>Nos Engagements</h2>
-    <p class="subtitle" style="color: rgba(255,255,255,0.9);">La sécurité et la satisfaction de nos clients sont notre priorité absolue</p>
-    <div class="engagements-grid">
-      <div class="engagement-card">
-        <div class="engagement-icon">🛡️</div>
-        <h3>Sécurité</h3>
-        <p>Respect des normes de sécurité les plus strictes sur tous nos chantiers.</p>
-      </div>
-      <div class="engagement-card">
-        <div class="engagement-icon">⏱️</div>
-        <h3>Délais</h3>
-        <p>Services réalisés dans les délais impartis, sans compromis sur la qualité.</p>
-      </div>
-      <div class="engagement-card">
-        <div class="engagement-icon">✅</div>
-        <h3>Conformité</h3>
-        <p>Tous nos documents administratifs sont en règle, transparence garantie.</p>
-      </div>
-      <div class="engagement-card">
-        <div class="engagement-icon">👷</div>
-        <h3>Expertise</h3>
-        <p>Équipe expérimentée et passionnée à votre service.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== CONTACT ===== -->
-<section class="contact" id="contact">
-  <div class="container">
-    <h2>Nous Contacter</h2>
-    <p class="subtitle">Une question ? Un projet ? Contactez-nous pour un devis gratuit</p>
-    <div class="contact-wrapper">
-      
-      <div class="contact-info">
-        <h3>Informations de contact</h3>
-        <p>N'hésitez pas à nous contacter pour toute demande d'information supplémentaire ou pour discuter de vos projets. Nous serions honorés de pouvoir collaborer avec vous.</p>
-        
-        <div class="contact-item">
-          <div class="contact-item-icon">📍</div>
-          <div class="contact-item-content">
-            <h4>Adresse</h4>
-            <p>60 rue du Château Gagneur<br>01170 Gex</p>
-          </div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-item-icon">📞</div>
-          <div class="contact-item-content">
-            <h4>Téléphone</h4>
-            <a href="tel:+33618637247">06 18 63 72 47</a>
-          </div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-item-icon">✉️</div>
-          <div class="contact-item-content">
-            <h4>Email</h4>
-            <a href="mailto:djer.bat.pro@gmail.com">djer.bat.pro@gmail.com</a>
-          </div>
-        </div>
-        
-        <div class="contact-item">
-          <div class="contact-item-icon">💬</div>
-          <div class="contact-item-content">
-            <h4>WhatsApp</h4>
-            <a href="https://wa.me/33618637247" target="_blank">Écrire sur WhatsApp</a>
-          </div>
-        </div>
-      </div>
-      
-      <form class="contact-form" id="devisForm">
-        <h3>Demander un devis gratuit</h3>
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Nom complet <span class="required">*</span></label>
-            <input type="text" name="nom" required>
-          </div>
-          <div class="form-group">
-            <label>Téléphone <span class="required">*</span></label>
-            <input type="tel" name="telephone" required>
-          </div>
-          <div class="form-group full">
-            <label>Email <span class="required">*</span></label>
-            <input type="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label>Société</label>
-            <input type="text" name="societe">
-          </div>
-          <div class="form-group">
-            <label>Type de service <span class="required">*</span></label>
-            <select name="service" required>
-              <option value="">-- Sélectionner --</option>
-              <option>Montage d'échafaudage</option>
-              <option>Installation plateforme sur mat</option>
-              <option>Ascenseur de chantier</option>
-              <option>Bi-mat</option>
-              <option>Vérification de sécurité</option>
-              <option>Réception de chantier</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="form-group full">
-            <label>Adresse du chantier <span class="required">*</span></label>
-            <input type="text" name="adresse" placeholder="Rue, ville, code postal" required>
-          </div>
-          <div class="form-group">
-            <label>Date souhaitée</label>
-            <input type="date" name="date">
-          </div>
-          <div class="form-group">
-            <label>Surface / Hauteur approximative</label>
-            <input type="text" name="surface" placeholder="Ex : 50 m², 8 mètres">
-          </div>
-          <div class="form-group full">
-            <label>Commentaire / détails du projet</label>
-            <textarea name="commentaire" placeholder="Décrivez votre projet, contraintes particulières..."></textarea>
-          </div>
-        </div>
-        <div class="form-submit">
-          <button type="submit" class="btn btn-primary">📩 Envoyer ma demande via WhatsApp</button>
-        </div>
-      </form>
-      
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>
-          <svg style="width:30px;height:30px;vertical-align:middle;margin-right:8px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="15" y="20" width="8" height="60" fill="#f97316" rx="2"/>
-            <rect x="77" y="20" width="8" height="60" fill="#f97316" rx="2"/>
-            <rect x="15" y="20" width="70" height="6" fill="#1e3a8a" rx="1"/>
-            <rect x="15" y="45" width="70" height="6" fill="#1e3a8a" rx="1"/>
-            <rect x="15" y="70" width="70" height="6" fill="#1e3a8a" rx="1"/>
-            <rect x="15" y="74" width="70" height="6" fill="#1e3a8a" rx="1"/>
-            <line x1="23" y1="26" x2="77" y2="45" stroke="#1e3a8a" stroke-width="3"/>
-            <line x1="77" y1="26" x2="23" y2="45" stroke="#1e3a8a" stroke-width="3"/>
-            <line x1="23" y1="51" x2="77" y2="70" stroke="#1e3a8a" stroke-width="3"/>
-            <line x1="77" y1="51" x2="23" y2="70" stroke="#1e3a8a" stroke-width="3"/>
-            <rect x="10" y="80" width="80" height="8" fill="#ea580c" rx="2"/>
-          </svg>
-          <span class="logo-text-blue">DJER</span><span class="logo-text-orange">-BAT</span>
-        </h4>
-        <p>Votre partenaire en montage d'échafaudage et installation de plateforme sur mat. Équipe expérimentée, sécurité garantie.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Nos Services</h4>
-        <ul>
-          <li><a href="#services">Montage d'échafaudage</a></li>
-          <li><a href="#services">Plateforme sur mat</a></li>
-          <li><a href="#services">Ascenseurs de chantier</a></li>
-          <li><a href="#services">Bi-mats</a></li>
-          <li><a href="#services">Vérification sécurité</a></li>
-          <li><a href="#services">Réception de chantier</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Liens utiles</h4>
-        <ul>
-          <li><a href="#about">À propos</a></li>
-          <li><a href="#galerie">Nos réalisations</a></li>
-          <li><a href="#engagements">Nos engagements</a></li>
-          <li><a href="#contact">Demander un devis</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <p>📍 60 rue du Château Gagneur<br>01170 Gex</p>
-        <p>📞 <a href="tel:+33618637247" style="color:var(--orange);">06 18 63 72 47</a></p>
-        <p>✉️ <a href="mailto:djer.bat.pro@gmail.com" style="color:var(--orange);">djer.bat.pro@gmail.com</a></p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      © 2026 DJER-BAT — Tous droits réservés.
-    </div>
-  </div>
-</footer>
-
-<!-- ===== WHATSAPP FLOATING ===== -->
-<a href="https://wa.me/33618637247" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.604 16.652C17.357 17.344 16.467 17.798 15.775 17.819C15.082 17.841 14.391 17.554 13.718 17.267C12.618 16.799 11.861 16.453 10.871 15.463C9.881 14.473 9.535 13.716 9.067 12.616C8.78 11.943 8.493 11.252 8.515 10.559C8.536 9.867 8.99 8.977 9.682 8.73C10.012 8.612 10.378 8.655 10.642 8.881C10.907 9.107 11.138 9.453 11.269 9.786C11.444 10.231 11.619 10.676 11.481 10.968C11.343 11.26 11.073 11.521 10.803 11.782C10.533 12.043 10.263 12.304 10.401 12.596C10.539 12.888 10.91 13.453 11.457 14.001C12.004 14.548 12.569 14.919 12.861 15.057C13.153 15.195 13.414 14.925 13.675 14.655C13.936 14.385 14.197 14.115 14.489 14.253C14.781 14.391 15.226 14.566 15.671 14.741C16.004 14.872 16.35 15.103 16.576 15.368C16.802 15.632 16.845 15.998 16.727 16.328L17.604 16.652ZM20.989 12.448C20.957 11.903 20.82 11.364 20.583 10.852C20.287 10.211 19.866 9.629 19.342 9.139C18.818 8.649 18.201 8.259 17.529 7.992C16.857 7.725 16.14 7.586 15.419 7.582C14.698 7.578 13.981 7.709 13.309 7.969C12.637 8.229 12.021 8.614 11.497 9.104C10.973 9.594 10.552 10.176 10.256 10.817C9.96 11.458 9.823 12.147 9.855 12.842C9.887 13.537 10.087 14.214 10.444 14.832C10.801 15.45 11.309 15.997 11.937 16.44C12.565 16.883 13.299 17.214 14.095 17.414C14.891 17.614 15.732 17.679 16.573 17.605C17.414 17.531 18.239 17.319 19.002 16.981C19.765 16.643 20.452 16.185 21.023 15.633C21.594 15.081 22.038 14.441 22.33 13.748C22.622 13.055 22.757 12.32 22.727 11.579L20.989 12.448Z"/>
-  </svg>
-</a>
-
-<script>
-  // ===== CONFIGURATION =====
-  const WHATSAPP_NUMBER = "33618637247";
-
-  // ===== MENU MOBILE =====
-  const burger = document.getElementById('burger');
-  const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('active'));
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('active'));
-  });
-
-  // ===== LIGHTBOX =====
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxClose = document.getElementById('lightboxClose');
-  document.querySelectorAll('.galerie-item img').forEach(img => {
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src.replace('w=800', 'w=1600');
-      lightbox.classList.add('active');
-    });
-  });
-  lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) lightbox.classList.remove('active');
-  });
-
-  // ===== FILTRAGE DE LA GALERIE =====
-  document.querySelectorAll('.gallery-filter').forEach(button => {
-    button.addEventListener('click', function() {
-      // Gestion de la classe active
-      document.querySelectorAll('.gallery-filter').forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-      
-      // Filtrage des items
-      const filter = this.getAttribute('data-filter');
-      document.querySelectorAll('.galerie-item').forEach(item => {
-        if (filter === 'all' || item.getAttribute('data-category') === filter) {
-          item.classList.remove('hidden');
-          setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'scale(1)';
-          }, 10);
-        } else {
-          item.style.opacity = '0';
-          item.style.transform = 'scale(0.8)';
-          setTimeout(() => {
-            item.classList.add('hidden');
-          }, 300);
-        }
-      });
-    });
-  });
-
-  // ===== FORMULAIRE → WHATSAPP =====
-  document.getElementById('devisForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const data = new FormData(this);
-    let message = "*NOUVELLE DEMANDE DE DEVIS — DJER-BAT*%0A%0A";
-    message += `👤 Nom : ${data.get('nom')}%0A`;
-    message += `📞 Téléphone : ${data.get('telephone')}%0A`;
-    message += `✉️ Email : ${data.get('email')}%0A`;
-    if (data.get('societe')) message += `🏢 Société : ${data.get('societe')}%0A`;
-    message += `🔧 Service : ${data.get('service')}%0A`;
-    message += `📍 Adresse chantier : ${data.get('adresse')}%0A`;
-    if (data.get('date')) message += `📅 Date souhaitée : ${data.get('date')}%0A`;
-    if (data.get('surface')) message += `📐 Surface/Hauteur : ${data.get('surface')}%0A`;
-    if (data.get('commentaire')) message += `💬 Commentaire : ${data.get('commentaire')}%0A`;
-    message += "%0A✅ Statut : NOUVELLE DEMANDE";
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
-  });
-</script>
-
-</body>
-</html>
